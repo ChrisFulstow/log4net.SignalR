@@ -1,7 +1,12 @@
-﻿
+﻿<style>
+    .log tr.error, .log tr.error:hover {
+        background-color: #FEE9CC;
+    }
+</style>
+
 <h1>Log</h1>
 
-<table id="log-table" class="zebra-striped">
+<table id="log-table" class="log">
     <thead>
         <tr>
             <th>Date</th>
@@ -17,11 +22,11 @@
     $(function () {
         var log4net = $.connection.signalrAppenderHub;
 
-        log4net.onLoggedEvent = function (formattedEvent, loggingEvent) {
-            var dateCell = $("<td>").css("white-space", "nowrap").text(loggingEvent.TimeStamp);
-            var levelCell = $("<td>").text(loggingEvent.Level.DisplayName);
-            var detailsCell = $("<td>").text(loggingEvent.RenderedMessage);
-            var row = $("<tr>").append(dateCell, levelCell, detailsCell);
+        log4net.onLoggedEvent = function (loggedEvent) {
+            var dateCell = $("<td>").css("white-space", "nowrap").text(loggedEvent.TimeStamp);
+            var levelCell = $("<td>").text(loggedEvent.Level);
+            var detailsCell = $("<td>").text(loggedEvent.Message);
+            var row = $("<tr>").append(dateCell, levelCell, detailsCell).addClass(loggedEvent.Level.toLowerCase());
             $('#log-table tbody').append(row);
         };
 

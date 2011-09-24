@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>Log4Net.Signalr</title>
+    <title>Log4Net.SignalR</title>
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Resources/bootstrap.min.css")" />
     <script type="text/javascript" src="@Url.Content("~/Resources/jquery-1.6.4.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Resources/jquery.signalR.min.js")"></script>
@@ -17,10 +17,11 @@
         <div class="topbar">
             <div class="topbar-inner">
                 <div class="container">
-                    <a class="brand" href="#">Log4Net.Signalr</a>
+                    <a class="brand" href="#">Log4Net.SignalR</a>
                     <ul class="nav">
-                        <li class="">@Html.ActionLink("Home", "Index")</li>
                         <li class="">@Html.ActionLink("Log", "Log")</li>
+                        <li class="">@Html.ActionLink("Home", "Index")</li>
+                        <li class="">@Html.ActionLink("Throw", "Throw")</li>
                     </ul>
                 </div>
             </div>

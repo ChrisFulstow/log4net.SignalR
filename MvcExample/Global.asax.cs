@@ -3,14 +3,15 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using log4net.Config;
+using MvcExample.Infrastructure;
 
-namespace Log4NetWebAppender
+namespace MvcExample
 {
     public class MvcApplication : HttpApplication
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            filters.Add(new HandleErrorAttribute());
+            filters.Add(new LogExceptionFilterAttribute());
         }
 
         public static void RegisterRoutes(RouteCollection routes)
@@ -29,7 +30,8 @@ namespace Log4NetWebAppender
             XmlConfigurator.ConfigureAndWatch(new FileInfo(Server.MapPath("~/log4net.config")));
 
             AreaRegistration.RegisterAllAreas();
-
+            
+            GlobalFilters.Filters.Add(new LoggingActionFilterAttribute());
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
         }

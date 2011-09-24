@@ -19,21 +19,21 @@ namespace log4net.SignalR
         {
             var logEventObject = new
             {
-                e.LoggingEvent.Domain,
-                e.LoggingEvent.ExceptionObject,
+                e.FormattedEvent,
+                Message = e.LoggingEvent.ExceptionObject != null ? e.LoggingEvent.ExceptionObject.Message : e.LoggingEvent.RenderedMessage,
+                Level = e.LoggingEvent.Level.Name,
+                TimeStamp = e.LoggingEvent.TimeStamp.ToString("yyyy-MM-dd HH:mm:ss.fff")
+                /* e.LoggingEvent.Domain,
                 e.LoggingEvent.Identity,
-                e.LoggingEvent.Level,
                 e.LoggingEvent.LocationInformation,
                 e.LoggingEvent.LoggerName,
                 e.LoggingEvent.MessageObject,
                 e.LoggingEvent.Properties,
-                e.LoggingEvent.RenderedMessage,
                 e.LoggingEvent.ThreadName,
-                TimeStamp = e.LoggingEvent.TimeStamp.ToString("yyyy-MM-dd HH:mm:ss.fff"),
-                e.LoggingEvent.UserName
+                e.LoggingEvent.UserName */
             };
 
-            Clients.onLoggedEvent(e.FormattedEvent, logEventObject);
+            Clients.onLoggedEvent(logEventObject);
         }
     }
 }
