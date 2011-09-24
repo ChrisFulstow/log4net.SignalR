@@ -1,0 +1,32 @@
+﻿
+<h1>Log</h1>
+
+<table id="log-table" class="zebra-striped">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Level</th>
+            <th style="width:100%">Details</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+<script type="text/javascript">
+    $(function () {
+        var log4net = $.connection.signalrAppenderHub;
+
+        log4net.onLoggedEvent = function (formattedEvent, loggingEvent) {
+            var dateCell = $("<td>").css("white-space", "nowrap").text(loggingEvent.TimeStamp);
+            var levelCell = $("<td>").text(loggingEvent.Level.DisplayName);
+            var detailsCell = $("<td>").text(loggingEvent.RenderedMessage);
+            var row = $("<tr>").append(dateCell, levelCell, detailsCell);
+            $('#log-table tbody').append(row);
+        };
+
+        $.connection.hub.start(function () {
+            log4net.listen();
+        });
+    });
+</script>

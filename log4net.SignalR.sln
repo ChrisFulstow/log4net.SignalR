@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "log4net.SignalR", "log4net.Signalr\log4net.SignalR.csproj", "{39DCA33A-BD4B-4A41-8256-4C3864E62926}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcExample", "MvcExample\MvcExample.csproj", "{12BF77EE-BF89-433D-A5FB-332D425F4C14}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{39DCA33A-BD4B-4A41-8256-4C3864E62926}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39DCA33A-BD4B-4A41-8256-4C3864E62926}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39DCA33A-BD4B-4A41-8256-4C3864E62926}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39DCA33A-BD4B-4A41-8256-4C3864E62926}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12BF77EE-BF89-433D-A5FB-332D425F4C14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12BF77EE-BF89-433D-A5FB-332D425F4C14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12BF77EE-BF89-433D-A5FB-332D425F4C14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12BF77EE-BF89-433D-A5FB-332D425F4C14}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
