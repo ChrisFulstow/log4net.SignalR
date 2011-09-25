@@ -9,9 +9,10 @@ namespace MvcExample
 {
     public class MvcApplication : HttpApplication
     {
-        public static void RegisterGlobalFilters(GlobalFilterCollection filters)
+        public static void RegisterGlobalLoggingFilters(GlobalFilterCollection filters)
         {
             filters.Add(new LogExceptionFilterAttribute());
+            filters.Add(new LogActionFilterAttribute());
         }
 
         public static void RegisterRoutes(RouteCollection routes)
@@ -30,9 +31,7 @@ namespace MvcExample
             XmlConfigurator.ConfigureAndWatch(new FileInfo(Server.MapPath("~/log4net.config")));
 
             AreaRegistration.RegisterAllAreas();
-            
-            GlobalFilters.Filters.Add(new LoggingActionFilterAttribute());
-            RegisterGlobalFilters(GlobalFilters.Filters);
+            RegisterGlobalLoggingFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
         }
     }

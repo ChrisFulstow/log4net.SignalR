@@ -30,8 +30,10 @@
             $('#log-table tbody').append(row);
         };
 
-        $.connection.hub.start(function () {
-            log4net.listen();
-        });
+                $.connection.hub.start(function () {
+                    log4net.listen();
+                });
+
+
     });
 </script>

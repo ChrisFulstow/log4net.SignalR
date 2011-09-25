@@ -4,7 +4,7 @@ using log4net;
 
 namespace MvcExample.Infrastructure
 {
-    public class LoggingActionFilterAttribute : ActionFilterAttribute
+    public class LogActionFilterAttribute : ActionFilterAttribute
     {
         public override void OnActionExecuted(ActionExecutedContext context)
         {

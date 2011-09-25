@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 using SignalR.Hubs;
 
@@ -7,15 +8,12 @@ namespace log4net.SignalR
     {
         public SignalrAppenderHub()
         {
-            var signalrAppender = SignalrAppender.Instance;
-            signalrAppender.MessageLoggedEvent += OnMessageLoggedEvent;
+            SignalrAppender.Instance.MessageLogged = OnMessageLogged;
         }
 
-        public void Listen()
-        {
-        }
+        public void Listen() { }
 
-        private void OnMessageLoggedEvent(object sender, MessageLoggedEventArgs e)
+        private void OnMessageLogged(LogEntry e)
         {
             var logEventObject = new
             {

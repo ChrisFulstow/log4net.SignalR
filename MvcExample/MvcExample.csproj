@@ -69,7 +69,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\LogExceptionFilterAttribute.cs" />
-    <Compile Include="Infrastructure\LoggingActionFilterAttribute.cs" />
+    <Compile Include="Infrastructure\LogActionFilterAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

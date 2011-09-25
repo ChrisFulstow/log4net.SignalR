@@ -7,7 +7,7 @@ namespace log4net.SignalR
     {
         private FixFlags _fixFlags = FixFlags.All;
 
-        public event EventHandler<MessageLoggedEventArgs> MessageLoggedEvent;
+        public Action<LogEntry> MessageLogged;
 
         public static SignalrAppender Instance { get; private set; }
 
@@ -30,21 +30,22 @@ namespace log4net.SignalR
 
             var formattedEvent = RenderLoggingEvent(loggingEvent);
 
-            var handler = MessageLoggedEvent;
+
+            var handler = MessageLogged;
             if (handler != null)
             {
-                handler(this, new MessageLoggedEventArgs(formattedEvent, loggingEvent));
+                handler(new LogEntry(formattedEvent, loggingEvent));
             }
         }
     }
 
 
-    public class MessageLoggedEventArgs : EventArgs
+    public class LogEntry
     {
         public string FormattedEvent { get; private set; }
         public LoggingEvent LoggingEvent { get; private set; }
 
-        public MessageLoggedEventArgs(string formttedEvent, LoggingEvent loggingEvent)
+        public LogEntry(string formttedEvent, LoggingEvent loggingEvent)
         {
             FormattedEvent = formttedEvent;
             LoggingEvent = loggingEvent;
