@@ -1,38 +1,40 @@
 ﻿<style>
-    .log tr.error, .log tr.error:hover {
-        background-color: #FEE9CC;
-    }
+    .log tr.error, .log tr.error:hover { background-color: #FEE9CC; }
 </style>
-
-<h1>Log</h1>
-
+<h1>
+    Log</h1>
 <table id="log-table" class="log">
     <thead>
         <tr>
-            <th>Date</th>
-            <th>Level</th>
-            <th style="width:100%">Details</th>
+            <th>
+                Date
+            </th>
+            <th>
+                Level
+            </th>
+            <th style="width: 100%">
+                Details
+            </th>
         </tr>
     </thead>
     <tbody>
     </tbody>
 </table>
-
 <script type="text/javascript">
     $(function () {
         var log4net = $.connection.signalrAppenderHub;
 
-        log4net.onLoggedEvent = function (loggedEvent) {
+        log4net.onLoggedEvent = function (formattedEvent, loggedEvent) {
             var dateCell = $("<td>").css("white-space", "nowrap").text(loggedEvent.TimeStamp);
-            var levelCell = $("<td>").text(loggedEvent.Level);
+            var levelCell = $("<td>").text(loggedEvent.Level.Name);
             var detailsCell = $("<td>").text(loggedEvent.Message);
-            var row = $("<tr>").append(dateCell, levelCell, detailsCell).addClass(loggedEvent.Level.toLowerCase());
+            var row = $("<tr>").append(dateCell, levelCell, detailsCell).addClass(loggedEvent.Level.Name.toLowerCase());
             $('#log-table tbody').append(row);
         };
 
-                $.connection.hub.start(function () {
-                    log4net.listen();
-                });
+        $.connection.hub.start(function () {
+            log4net.listen();
+        });
 
 
     });
