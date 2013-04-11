@@ -20,7 +20,7 @@ namespace log4net.SignalR
 
         public void OnMessageLogged(LogEntry e)
         {
-            Clients.Group("Log4NetGroup").onLoggedEvent(e.FormattedEvent, e.LoggingEvent);
+            Clients.Group(Log4NetGroup).onLoggedEvent(e.FormattedEvent, e.LoggingEvent);
         }
     }
 }
