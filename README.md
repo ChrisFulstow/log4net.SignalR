@@ -84,15 +84,15 @@ Here we're adding each event's details to an HTML table, but you can use the `on
     });
 ```
 
-### A note about running the SignalrAppenderHub within an ASP.Net applicaiton
+### A note about running the SignalrAppenderHub within an ASP.Net web application
 If you are hosting the hub from within an ASP.Net application (which you most likely are), you should also make sure that you also tell IIS to map the proper URLs for the hubs.  You should add the following statement somewhere in your Global.asax.cs.
 
 ```C#
 routes.MapHubs(new HubConfiguration()
-            {
-                EnableCrossDomain = true,  //Do this if any of your SignalR hubs will be called by a proxy hub (like an appender in an external process)
-                EnableDetailedErrors = true   //Do this to help debugging, set to false in production
-            });
+{
+	EnableCrossDomain = true,  //Do this if any of your SignalR hubs will be called by a proxy hub (like an appender in an external process)
+	EnableDetailedErrors = true   //Do this to help debugging, set to false in production
+});
 ```
 ##License
 log4net.SignalR is open source under the [The MIT License (MIT)](http://www.opensource.org/licenses/mit-license.php)
