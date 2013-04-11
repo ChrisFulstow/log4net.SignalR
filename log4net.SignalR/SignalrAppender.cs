@@ -1,5 +1,7 @@
 using System;
 using log4net.Core;
+using Microsoft.AspNet.SignalR.Client.Hubs;
+using Microsoft.AspNet.SignalR.Client.Transports;
 
 namespace log4net.SignalR
 {
@@ -9,11 +11,37 @@ namespace log4net.SignalR
 
         public Action<LogEntry> MessageLogged;
 
-        public static SignalrAppender Instance { get; private set; }
+        public static SignalrAppender LocalInstance { get; private set; }
+
+        private IHubProxy proxyConnection = null;
+
+        private string _proxyUrl = "";
+        public string ProxyUrl {
+            get
+            {
+                return _proxyUrl;
+            }
+            set
+            {
+                if (value != "")
+                {
+                    HubConnection connection = new HubConnection(value);
+                    proxyConnection = connection.CreateHubProxy("signalrAppenderHub");
+                    connection.Start().Wait();
+
+                }
+                else
+                {
+                    proxyConnection = null;
+                }
+                _proxyUrl = value;
+            }
+        }
 
         public SignalrAppender()
         {
-            Instance = this;
+
+            LocalInstance = this;
         }
 
         virtual public FixFlags Fix
@@ -30,11 +58,25 @@ namespace log4net.SignalR
 
             var formattedEvent = RenderLoggingEvent(loggingEvent);
 
+            var logEntry = new LogEntry(formattedEvent, new JsonLoggingEventData(loggingEvent));
 
-            var handler = MessageLogged;
-            if (handler != null)
+            if (proxyConnection != null)
             {
-                handler(new LogEntry(formattedEvent, loggingEvent));
+                ProxyOnMessageLogged(logEntry);
+            } else if (MessageLogged != null)
+            {
+                MessageLogged(logEntry);
+            }
+        }
+
+        private void ProxyOnMessageLogged(LogEntry entry)
+        {
+            try
+            {
+                proxyConnection.Invoke("OnMessageLogged", entry);
+            }
+            catch (Exception e){
+                LogManager.GetLogger("").Warn("OnMessageLogged Failed:", e);
             }
         }
     }
@@ -42,10 +84,10 @@ namespace log4net.SignalR
 
     public class LogEntry
     {
-        public string FormattedEvent { get; private set; }
-        public LoggingEvent LoggingEvent { get; private set; }
+        public string FormattedEvent { get; set; }
+        public JsonLoggingEventData LoggingEvent { get; set; }
 
-        public LogEntry(string formttedEvent, LoggingEvent loggingEvent)
+        public LogEntry(string formttedEvent, JsonLoggingEventData loggingEvent)
         {
             FormattedEvent = formttedEvent;
             LoggingEvent = loggingEvent;

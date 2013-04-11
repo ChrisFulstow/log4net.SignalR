@@ -17,9 +17,9 @@ Getting started is easy.  You can also check out the bundled MvcExample project 
 
 Add the compiled log4net.SignalR.dll assembly or the source files to your project.
 
-###Configure log4net.SignalR as a Log4Net appender
+###Configure log4net.SignalR as a Log4Net appender to a self-hosted hub (for example, messages logged from within a web application)
 
-Configure the SignalrAppender as an output destination for your log events by adding this to web.config:
+Configure the SignalrAppender as an output destination for your log events by adding this to your log4net configuration (usually web.config):
 
 ```xml
 <configSections>
@@ -27,7 +27,29 @@ Configure the SignalrAppender as an output destination for your log events by ad
 </configSections>
 
 <log4net debug="true">
-    <appender name="SignalrAppender" type="log4net.SignalR.SignalrAppender">
+    <appender name="SignalrAppender" type="log4net.SignalR.SignalrAppender, log4net.SignalR">
+        <layout type="log4net.Layout.PatternLayout">
+            <conversionPattern value="%date %-5level - %message%newline" />
+        </layout>
+    </appender>
+    <root>
+        <appender-ref ref="SignalrAppender" />
+    </root>
+</log4net>
+```
+
+###Configure log4net.SignalR as a Log4Net appender to a remotely hosted hub (for example, messages logged from a console application, but displayed in a web application)
+
+Configure the SignalrAppender as an output destination for your log events by adding this to your log4net configuration (usually log4net.config or app.config):
+
+```xml
+<configSections>
+  <section name="log4net" type="log4net.Config.Log4NetConfigurationSectionHandler, log4net" />
+</configSections>
+
+<log4net debug="true">
+    <appender name="SignalrAppender" type="log4net.SignalR.SignalrAppender, log4net.SignalR">
+		<proxyUrl>http://localhost/</proxyUrl> <!-- Note: This should point to the root of your Web Application, not the hub itself -->
         <layout type="log4net.Layout.PatternLayout">
             <conversionPattern value="%date %-5level - %message%newline" />
         </layout>
@@ -62,5 +84,15 @@ Here we're adding each event's details to an HTML table, but you can use the `on
     });
 ```
 
+### A note about running the SignalrAppenderHub within an ASP.Net applicaiton
+If you are hosting the hub from within an ASP.Net application (which you most likely are), you should also make sure that you also tell IIS to map the proper URLs for the hubs.  You should add the following statement somewhere in your Global.asax.cs.
+
+```C#
+routes.MapHubs(new HubConfiguration()
+            {
+                EnableCrossDomain = true,  //Do this if any of your SignalR hubs will be called by a proxy hub (like an appender in an external process)
+                EnableDetailedErrors = true   //Do this to help debugging, set to false in production
+            });
+```
 ##License
 log4net.SignalR is open source under the [The MIT License (MIT)](http://www.opensource.org/licenses/mit-license.php)

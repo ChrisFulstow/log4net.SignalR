@@ -1,6 +1,6 @@
+using Microsoft.AspNet.SignalR;
 using System;
 using System.Diagnostics;
-using SignalR.Hubs;
 
 namespace log4net.SignalR
 {
@@ -10,7 +10,7 @@ namespace log4net.SignalR
         
         public SignalrAppenderHub()
         {
-            SignalrAppender.Instance.MessageLogged = OnMessageLogged;
+            SignalrAppender.LocalInstance.MessageLogged = OnMessageLogged;
         }
 
         public void Listen() 
@@ -18,9 +18,9 @@ namespace log4net.SignalR
             Groups.Add(Context.ConnectionId, Log4NetGroup);         
         }
 
-        private void OnMessageLogged(LogEntry e)
+        public void OnMessageLogged(LogEntry e)
         {
-            Clients[Log4NetGroup].onLoggedEvent(e.FormattedEvent, e.LoggingEvent);
+            Clients.Group("Log4NetGroup").onLoggedEvent(e.FormattedEvent, e.LoggingEvent);
         }
     }
 }
