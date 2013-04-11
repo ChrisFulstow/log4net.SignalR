@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using log4net.Config;
 using MvcExample.Infrastructure;
+using Microsoft.AspNet.SignalR;
 
 namespace MvcExample
 {
@@ -18,6 +19,8 @@ namespace MvcExample
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
+            routes.MapHubs();
 
             routes.MapRoute(
                 "Default", // Route name
