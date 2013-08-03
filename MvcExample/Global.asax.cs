@@ -20,8 +20,6 @@ namespace MvcExample
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapHubs();
-
             routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
@@ -35,6 +33,8 @@ namespace MvcExample
 
             AreaRegistration.RegisterAllAreas();
             RegisterGlobalLoggingFilters(GlobalFilters.Filters);
+
+            RouteTable.Routes.MapHubs();
             RegisterRoutes(RouteTable.Routes);
         }
     }

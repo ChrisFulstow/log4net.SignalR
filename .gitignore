@@ -33,6 +33,7 @@ Ankh.NoLoad
 _ReSharper*/
 *.resharper
 [Tt]est[Rr]esult*
+packages/*/
 
 #Project files
 [Bb]uild/

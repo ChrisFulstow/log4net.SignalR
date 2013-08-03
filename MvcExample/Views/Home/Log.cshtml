@@ -3,7 +3,7 @@
 </style>
 <h1>
     Log</h1>
-<table id="log-table" class="log">
+<table id="log-table" class="log table table-condensed table-bordered table-striped">
     <thead>
         <tr>
             <th>
@@ -20,17 +20,58 @@
     <tbody>
     </tbody>
 </table>
+
+
+<!-- Modal -->
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Event details</h3>
+  </div>
+  <div class="modal-body">
+    <pre id="eventDetails">One fine body…</pre>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+  </div>
+</div>
+
 <script type="text/javascript">
+    function convertDebugStyleToBootstrap(level) {
+        if (level == "debug" || level == "trace" ) {
+            return "success";
+        } else if (level == "warn") {
+            return "warning";
+        } else {
+            // if none is configured, let default one
+            return level;
+        }
+    }
+
+    function showDetails(detail) {
+        console.log("detail", detail, detail.data);
+        $('#eventDetails').innerHTML = detail.data;
+        console.log("myModal", $('#myModal'));
+        $('#myModal').modal('show')
+    }
+
     $(function () {
         var log4net = $.connection.signalrAppenderHub;
 
         log4net.client.onLoggedEvent = function (formattedEvent, loggedEvent) {
+            if (console && console.log)
+                console.log("onLoggedEvent", formattedEvent, loggedEvent);
+
             var dateCell = $("<td>").css("white-space", "nowrap").text(loggedEvent.TimeStamp);
             var levelCell = $("<td>").text(loggedEvent.Level.Name);
             var detailsCell = $("<td>").text(loggedEvent.Message);
-            var row = $("<tr>").append(dateCell, levelCell, detailsCell).addClass(loggedEvent.Level.Name.toLowerCase());
+            var row = $("<tr>").append(dateCell, levelCell, detailsCell);
+            row = row.addClass(convertDebugStyleToBootstrap(loggedEvent.Level.Name.toLowerCase()));
+            row.attr("title", formattedEvent);
+            row.bind("click", formattedEvent, showDetails);
             $('#log-table tbody').append(row);
         };
+        $.connection.hub.logging = true;
 
         $.connection.hub.start(function () {
             log4net.server.listen();
