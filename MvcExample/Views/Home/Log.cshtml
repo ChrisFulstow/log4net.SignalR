@@ -1,5 +1,17 @@
 ﻿<style>
     .log tr.error, .log tr.error:hover { background-color: #FEE9CC; }
+    div#myModal
+    {
+        width: 950px;
+        margin-left: -480px;
+    }
+    pre#eventDetails
+    {
+        white-space: pre;
+        word-wrap: normal;
+        overflow-x: auto;
+
+    }
 </style>
 <h1>
     Log</h1>
@@ -29,7 +41,7 @@
     <h3 id="myModalLabel">Event details</h3>
   </div>
   <div class="modal-body">
-    <pre id="eventDetails">One fine body…</pre>
+    <pre id="eventDetails">One fine body</pre>
   </div>
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
@@ -48,11 +60,44 @@
         }
     }
 
+    function printValue(dtm) {
+
+        var d1 = dtm;
+
+        var curr_year = d1.getFullYear();
+
+        var curr_month = d1.getMonth() + 1; //Months are zero based
+        if (curr_month < 10)
+            curr_month = "0" + curr_month;
+
+        var curr_date = d1.getDate();
+        if (curr_date < 10)
+            curr_date = "0" + curr_date;
+
+        var curr_hour = d1.getHours();
+        if (curr_hour < 10)
+            curr_hour = "0" + curr_hour;
+
+        var curr_min = d1.getMinutes();
+        if (curr_min < 10)
+            curr_min = "0" + curr_min;
+
+        var curr_sec = d1.getSeconds();     
+        if (curr_sec < 10)
+            curr_sec = "0" + curr_sec;
+
+        console.log(d1.getMilliseconds());
+        var curr_msec = "00" + d1.getMilliseconds();
+        curr_msec = curr_msec.substring((curr_msec.length - 3), curr_msec.length)
+
+        var newtimestamp = curr_hour + ":" + curr_min + ":" + curr_sec + "." + curr_msec;
+
+        return newtimestamp;
+    }
+
     function showDetails(detail) {
-        console.log("detail", detail, detail.data);
-        $('#eventDetails').innerHTML = detail.data;
-        console.log("myModal", $('#myModal'));
-        $('#myModal').modal('show')
+        $('#eventDetails').text(detail.data);
+        $('#myModal').modal('show');
     }
 
     $(function () {
@@ -62,12 +107,12 @@
             if (console && console.log)
                 console.log("onLoggedEvent", formattedEvent, loggedEvent);
 
-            var dateCell = $("<td>").css("white-space", "nowrap").text(loggedEvent.TimeStamp);
+            var dtm = new Date(Date.parse(loggedEvent.TimeStamp));
+            var dateCell = $("<td>").css("white-space", "nowrap").text(printValue(dtm));
             var levelCell = $("<td>").text(loggedEvent.Level.Name);
             var detailsCell = $("<td>").text(loggedEvent.Message);
             var row = $("<tr>").append(dateCell, levelCell, detailsCell);
             row = row.addClass(convertDebugStyleToBootstrap(loggedEvent.Level.Name.toLowerCase()));
-            row.attr("title", formattedEvent);
             row.bind("click", formattedEvent, showDetails);
             $('#log-table tbody').append(row);
         };
