@@ -1,7 +1,6 @@
-using System;
 using log4net.Core;
-using Microsoft.AspNet.SignalR.Client.Hubs;
-using Microsoft.AspNet.SignalR.Client.Transports;
+using Microsoft.AspNet.SignalR.Client;
+using System;
 
 namespace log4net.SignalR
 {
@@ -16,7 +15,8 @@ namespace log4net.SignalR
         private IHubProxy proxyConnection = null;
 
         private string _proxyUrl = "";
-        public string ProxyUrl {
+        public string ProxyUrl
+        {
             get
             {
                 return _proxyUrl;
@@ -63,7 +63,8 @@ namespace log4net.SignalR
             if (proxyConnection != null)
             {
                 ProxyOnMessageLogged(logEntry);
-            } else if (MessageLogged != null)
+            }
+            else if (MessageLogged != null)
             {
                 MessageLogged(logEntry);
             }
@@ -75,7 +76,8 @@ namespace log4net.SignalR
             {
                 proxyConnection.Invoke("OnMessageLogged", entry);
             }
-            catch (Exception e){
+            catch (Exception e)
+            {
                 LogManager.GetLogger("").Warn("OnMessageLogged Failed:", e);
             }
         }
