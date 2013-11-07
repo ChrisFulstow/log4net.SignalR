@@ -1,8 +1,4 @@
 ﻿using log4net.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace log4net.SignalR
 {
@@ -33,6 +29,6 @@ namespace log4net.SignalR
 
         public string MethodName { get; set; }
 
-        public System.Diagnostics.StackFrame[] StackFrames { get; set; }
+        public StackFrameItem[] StackFrames { get; set; }
     }
 }

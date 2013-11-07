@@ -1,10 +1,9 @@
-﻿using System.IO;
+﻿using log4net.Config;
+using MvcExample.Infrastructure;
+using System.IO;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using log4net.Config;
-using MvcExample.Infrastructure;
-using Microsoft.AspNet.SignalR;
 
 namespace MvcExample
 {
@@ -34,7 +33,6 @@ namespace MvcExample
             AreaRegistration.RegisterAllAreas();
             RegisterGlobalLoggingFilters(GlobalFilters.Filters);
 
-            RouteTable.Routes.MapHubs();
             RegisterRoutes(RouteTable.Routes);
         }
     }

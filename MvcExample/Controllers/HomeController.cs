@@ -1,6 +1,8 @@
-﻿using System;
+﻿using log4net;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Web.Mvc;
-using log4net;
 
 namespace MvcExample.Controllers
 {
@@ -8,9 +10,6 @@ namespace MvcExample.Controllers
     {
         public ActionResult Index()
         {
-            LogManager.GetLogger("").Info("Example message logged by HomeController.Index()");
-            LogManager.GetLogger("").Warn("Example message logged by HomeController.Index() on WARN");
-            LogManager.GetLogger("").Debug("Example message logged by HomeController.Index() on DEBUG");
             return View();
         }
 
@@ -21,6 +20,16 @@ namespace MvcExample.Controllers
 
         public ActionResult Log()
         {
+            Task.Factory.StartNew(() =>
+            {
+                Thread.Sleep(5000);
+                LogManager.GetLogger("").Info("Example message logged by HomeController.Index()");
+                Thread.Sleep(5000);
+                LogManager.GetLogger("").Warn("Example message logged by HomeController.Index() on WARN");
+                Thread.Sleep(5000);
+                LogManager.GetLogger("").Debug("Example message logged by HomeController.Index() on DEBUG");
+            }, TaskCreationOptions.LongRunning);
+
             return View();
         }
     }
