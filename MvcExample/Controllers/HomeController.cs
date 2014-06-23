@@ -1,6 +1,11 @@
-﻿using System;
+﻿#region Using directives
+
+using System;
 using System.Web.Mvc;
 using log4net;
+
+#endregion
+
 
 namespace MvcExample.Controllers
 {

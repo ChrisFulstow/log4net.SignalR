@@ -1,8 +1,9 @@
-﻿using log4net.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿#region Using directives
+
+using log4net.Core;
+
+#endregion
+
 
 namespace log4net.SignalR
 {
@@ -10,17 +11,16 @@ namespace log4net.SignalR
     {
         public JsonLocationInfo()
         {
-
         }
 
         public JsonLocationInfo(LocationInfo locationInfo)
         {
-            this.ClassName = locationInfo.ClassName;
-            this.FileName = locationInfo.FileName;
-            this.FullInfo = locationInfo.FullInfo;
-            this.LineNumber = locationInfo.LineNumber;
-            this.MethodName = locationInfo.MethodName;
-            this.StackFrames = locationInfo.StackFrames;
+            ClassName = locationInfo.ClassName;
+            FileName = locationInfo.FileName;
+            FullInfo = locationInfo.FullInfo;
+            LineNumber = locationInfo.LineNumber;
+            MethodName = locationInfo.MethodName;
+            StackFrames = locationInfo.StackFrames;
         }
 
         public string ClassName { get; set; }
@@ -33,6 +33,6 @@ namespace log4net.SignalR
 
         public string MethodName { get; set; }
 
-        public System.Diagnostics.StackFrame[] StackFrames { get; set; }
+        public StackFrameItem[] StackFrames { get; set; }
     }
 }

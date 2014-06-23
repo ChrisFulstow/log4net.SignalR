@@ -1,33 +1,31 @@
 ﻿<!DOCTYPE html>
 <html>
-<head>
-    <title>Log4Net.SignalR</title>
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/bootstrap.min.css")" />
-    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.9.1.min.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.signalR-1.1.2.min.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
-    <script src="@Url.Content("~/signalr/hubs")"></script>
-    <style>
-        body {
-            padding-top: 60px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="navbar">
-            <div class="navbar-inner">
-                <div class="container">
-                    <a class="brand" href="#">Log4Net.SignalR</a>
-                    <ul class="nav">
-                        <li class="">@Html.ActionLink("Log", "Log")</li>
-                        <li class="">@Html.ActionLink("Home", "Index")</li>
-                        <li class="">@Html.ActionLink("Throw", "Throw")</li>
-                    </ul>
+    <head>
+        <title>Log4Net.SignalR</title>
+        <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/bootstrap.min.css")" />
+        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-2.1.1.min.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.signalR-2.1.0.min.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+        <script src="@Url.Content("~/signalr/hubs")"></script>
+        <style>
+            body { padding-top: 60px; }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <div class="container">
+                        <a class="brand" href="#">Log4Net.SignalR</a>
+                        <ul class="nav">
+                            <li class="">@Html.ActionLink("Log", "Log")</li>
+                            <li class="">@Html.ActionLink("Home", "Index")</li>
+                            <li class="">@Html.ActionLink("Throw", "Throw")</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
+            @RenderBody()
         </div>
-        @RenderBody()
-    </div>
-</body>
+    </body>
 </html>

@@ -1,6 +1,10 @@
-﻿using System;
+﻿#region Using directives
+
 using System.Web.Mvc;
 using log4net;
+
+#endregion
+
 
 namespace MvcExample.Infrastructure
 {
@@ -9,8 +13,8 @@ namespace MvcExample.Infrastructure
         public override void OnActionExecuted(ActionExecutedContext context)
         {
             LogManager.GetLogger("").Info("ActionExecuted: " +
-                context.ActionDescriptor.ControllerDescriptor.ControllerName + "." +
-                context.ActionDescriptor.ActionName);
+                                          context.ActionDescriptor.ControllerDescriptor.ControllerName + "." +
+                                          context.ActionDescriptor.ActionName);
 
             base.OnActionExecuted(context);
         }

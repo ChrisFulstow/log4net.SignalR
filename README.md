@@ -70,7 +70,7 @@ Here we're adding each event's details to an HTML table, but you can use the `on
     $(function () {
         var log4net = $.connection.signalrAppenderHub;
 
-        log4net.onLoggedEvent = function (loggedEvent) {
+        log4net.client.onLoggedEvent = function (loggedEvent) {
             var dateCell = $("<td>").css("white-space", "nowrap").text(loggedEvent.TimeStamp);
             var levelCell = $("<td>").text(loggedEvent.Level);
             var detailsCell = $("<td>").text(loggedEvent.Message);
@@ -78,21 +78,26 @@ Here we're adding each event's details to an HTML table, but you can use the `on
             $('#log-table tbody').append(row);
         };
 
-        $.connection.hub.start(function () {
-            log4net.listen();
+        $.connection.hub.logging = true; // turn signalr console logging on/off
+
+        $.connection.hub.start(function() {
+            log4net.server.listen();
         });
     });
 ```
+
+###To test the MVC example
+Open up two browser windows/tabs. Keep one tab on the initial page. Use the other tab instance to navigate. You will see the log4net messages accumulate in the first tab.
 
 ### A note about running the SignalrAppenderHub within an ASP.Net web application
 If you are hosting the hub from within an ASP.Net application (which you most likely are), you should also make sure that you also tell IIS to map the proper URLs for the hubs.  You should add the following statement somewhere in your Global.asax.cs.
 
 ```C#
-routes.MapHubs(new HubConfiguration()
-{
-	EnableCrossDomain = true,  //Do this if any of your SignalR hubs will be called by a proxy hub (like an appender in an external process)
-	EnableDetailedErrors = true   //Do this to help debugging, set to false in production
-});
+app.MapSignalR(new HubConfiguration {
+                EnableDetailedErrors = true, //Do this to help debugging, set to false in production
+                EnableJSONP = true, //Do this if any of your SignalR hubs will be called by a proxy hub (like an appender in an external process)
+                EnableJavaScriptProxies = true
+            });
 ```
 ##License
 log4net.SignalR is open source under the [The MIT License (MIT)](http://www.opensource.org/licenses/mit-license.php)

@@ -1,8 +1,11 @@
-﻿using log4net.Core;
+﻿#region Using directives
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using log4net.Core;
+using log4net.Util;
+
+#endregion
+
 
 namespace log4net.SignalR
 {
@@ -10,23 +13,22 @@ namespace log4net.SignalR
     {
         public JsonLoggingEventData()
         {
-
         }
 
         public JsonLoggingEventData(LoggingEvent loggingEvent)
         {
             LoggingEventData loggingEventData = loggingEvent.GetLoggingEventData();
-            this.Domain = loggingEventData.Domain;
-            this.ExceptionString = loggingEventData.ExceptionString;
-            this.Identity = loggingEventData.Identity;
-            this.Level = new JsonLevel(loggingEventData.Level);
-            this.LocationInfo = new JsonLocationInfo(loggingEventData.LocationInfo);
-            this.LoggerName = loggingEventData.LoggerName;
-            this.Message = loggingEventData.Message;
-            this.Properties = loggingEventData.Properties;
-            this.ThreadName = loggingEventData.ThreadName;
-            this.TimeStamp = loggingEventData.TimeStamp;
-            this.UserName = loggingEventData.UserName;
+            Domain = loggingEventData.Domain;
+            ExceptionString = loggingEventData.ExceptionString;
+            Identity = loggingEventData.Identity;
+            Level = new JsonLevel(loggingEventData.Level);
+            LocationInfo = new JsonLocationInfo(loggingEventData.LocationInfo);
+            LoggerName = loggingEventData.LoggerName;
+            Message = loggingEventData.Message;
+            Properties = loggingEventData.Properties;
+            ThreadName = loggingEventData.ThreadName;
+            TimeStamp = loggingEventData.TimeStamp;
+            UserName = loggingEventData.UserName;
         }
 
         public string Domain { get; set; }
@@ -43,7 +45,7 @@ namespace log4net.SignalR
 
         public string Message { get; set; }
 
-        public Util.PropertiesDictionary Properties { get; set; }
+        public PropertiesDictionary Properties { get; set; }
 
         public string ThreadName { get; set; }
 
