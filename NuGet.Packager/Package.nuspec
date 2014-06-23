@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>log4net.signalr.appender</id>
+    <version>1.0.0</version>
+    <title>log4net.signalr</title>
+    <authors>Chris Fulstow</authors>
+    <owners></owners>
+    <description>
+        log4net.SignalR is a Log4Net Appender that sends Log4Net events logged on the server to a JavaScript function in the browser. It uses the SignalR async signaling library to stream these events in real-time over a persistent connection between the server and client.
+        The main use case for log4net.SignalR is building a log viewer on your site that gives easy visibility to diagnostic information and errors logged on the server. (However, you probably won't want to use it in production in case your logs include sensitive information.)
+    </description>
+    <releaseNotes>
+    </releaseNotes>
+    <summary>
+        Log4Net Appender for sending log events from server to browser
+    </summary>
+    <language>en-US</language>
+    <projectUrl>https://github.com/ChrisFulstow/log4net.SignalR</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>http://opensource.org/licenses/mit-license.php</licenseUrl>
+    <copyright>Copyright 2014</copyright>
+    <dependencies>
+        <group targetFramework="net45">
+          
+        </group>
+    </dependencies>
+    <references></references>
+    <tags></tags>
+  </metadata>
+  <files>
+    <file src="lib\" target="lib" />
+    <file src="tools\" target="tools" />
+    <file src="content\" target="content" />
+  </files>
+</package>
