@@ -1,5 +1,10 @@
+#region Using directives
+
 using System.Web.Mvc;
 using log4net;
+
+#endregion
+
 
 namespace MvcExample.Infrastructure
 {

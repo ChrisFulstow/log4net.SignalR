@@ -1,17 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿#region Using directives
+
+using log4net.Core;
+
+#endregion
+
 
 namespace log4net.SignalR
 {
     public class JsonLevel
     {
-        public JsonLevel(Core.Level level)
+        public JsonLevel(Level level)
         {
-            this.DisplayName = level.DisplayName;
-            this.Name = level.Name;
-            this.Value = level.Value;
+            DisplayName = level.DisplayName;
+            Name = level.Name;
+            Value = level.Value;
         }
 
         public JsonLevel()
